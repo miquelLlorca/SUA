@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="sua.autonomouscar.infraestructure.devices.ARC.DistanceSensorARC"/>
+    <fullyQualifiedTypeName name="es.upv.pros.tatami.adaptation.mapek.lite.helpers.BasicMAPEKLiteLoopHelper"/>
+    <fullyQualifiedTypeName name="autonomouscar.mapek.lite.adaptation.resources.MonitorTipo"/>
+</qualifiedTypeNameHistroy>
