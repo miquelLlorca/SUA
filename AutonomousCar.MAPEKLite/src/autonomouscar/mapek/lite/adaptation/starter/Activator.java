@@ -9,17 +9,33 @@ import autonomouscar.mapek.lite.adaptation.resources.HighwayCityAdaptationRule;
 import autonomouscar.mapek.lite.adaptation.resources.IluminacionConfortAdaptationRule;
 import autonomouscar.mapek.lite.adaptation.resources.InitializeL3AdaptationRule;
 import autonomouscar.mapek.lite.adaptation.resources.MonitorDistancia;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorDistanciaSeguridad;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorDriver;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorEngine;
 import autonomouscar.mapek.lite.adaptation.resources.MonitorEstado;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorFace;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorHandsOnWheel;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorLine;
 import autonomouscar.mapek.lite.adaptation.resources.MonitorModo;
 import autonomouscar.mapek.lite.adaptation.resources.MonitorNivel;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorSpeedometer;
+import autonomouscar.mapek.lite.adaptation.resources.MonitorSteering;
 import autonomouscar.mapek.lite.adaptation.resources.MonitorTipo;
 import autonomouscar.mapek.lite.adaptation.resources.MonitorVelocidad;
 import autonomouscar.mapek.lite.adaptation.resources.OffRoadAdaptationRule;
 import autonomouscar.mapek.lite.adaptation.resources.SensorAdaptationRule;
 import autonomouscar.mapek.lite.adaptation.resources.SondaDistancia;
+import autonomouscar.mapek.lite.adaptation.resources.SondaDistanciaSeguridad;
+import autonomouscar.mapek.lite.adaptation.resources.SondaDriver;
+import autonomouscar.mapek.lite.adaptation.resources.SondaEngine;
 import autonomouscar.mapek.lite.adaptation.resources.SondaEstado;
+import autonomouscar.mapek.lite.adaptation.resources.SondaFace;
+import autonomouscar.mapek.lite.adaptation.resources.SondaHandsOnWheel;
+import autonomouscar.mapek.lite.adaptation.resources.SondaLine;
 import autonomouscar.mapek.lite.adaptation.resources.SondaModo;
 import autonomouscar.mapek.lite.adaptation.resources.SondaNivel;
+import autonomouscar.mapek.lite.adaptation.resources.SondaSpeedometer;
+import autonomouscar.mapek.lite.adaptation.resources.SondaSteering;
 import autonomouscar.mapek.lite.adaptation.resources.SondaTipo;
 import autonomouscar.mapek.lite.adaptation.resources.SondaVelocidad;
 import autonomouscar.mapek.lite.adaptation.resources.TrafficJamAdaptationRule;
@@ -93,13 +109,20 @@ public class Activator implements BundleActivator {
 		IKnowledgeProperty kp_roadStatus = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Estado_Carretera");
 		IKnowledgeProperty kp_nivelConduccion = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Nivel_Conduccion");
 
-		IKnowledgeProperty kp_circulacionFluida  = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Circulacion_Fluida");
 		IKnowledgeProperty kp_distanciaSeguridad = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Distancia_Seguridad");
-
+		IKnowledgeProperty kp_humano = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Humano");
+		IKnowledgeProperty kp_cara = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Cara");
 		
-		// ASegura que empieza en acrretera estandar
-		kp_roadType.setValue("HIGHWAY");
-
+		IKnowledgeProperty kp_manos = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Manos");
+		IKnowledgeProperty kp_motor = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Motor");
+		
+		IKnowledgeProperty kp_steer = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Steering");
+		IKnowledgeProperty kp_dist = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Distancia");
+		IKnowledgeProperty kp_line = BasicMAPEKLiteLoopHelper.createKnowledgeProperty("Linea");
+		
+		
+		
+		
 		// ADAPTATION RULES
 	
  		IAdaptiveReadyComponent OffRoadAdaptationRuleARC_ADS_L3_1 = 
@@ -120,23 +143,35 @@ public class Activator implements BundleActivator {
  		IAdaptiveReadyComponent SensorAdaptationRuleARC_ADS_1 = 
  				BasicMAPEKLiteLoopHelper.deployAdaptationRule(new SensorAdaptationRule(bundleContext));
 
-
  		
 		// MONITORS
 		IAdaptiveReadyComponent roadTypeMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorTipo(bundleContext));		
 		IAdaptiveReadyComponent roadStatusMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorEstado(bundleContext));		
 		IAdaptiveReadyComponent speedMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorVelocidad(bundleContext));
-		IAdaptiveReadyComponent distanceMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorDistancia(bundleContext));
+		IAdaptiveReadyComponent securityDistanceMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorDistanciaSeguridad(bundleContext));
 		IAdaptiveReadyComponent levelMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorNivel(bundleContext));
+		IAdaptiveReadyComponent faceMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorFace(bundleContext));
+		IAdaptiveReadyComponent driverMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorDriver(bundleContext));
+		IAdaptiveReadyComponent handsOnWheelMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorHandsOnWheel(bundleContext));	
+		IAdaptiveReadyComponent distanceMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorDistancia(bundleContext));
+		IAdaptiveReadyComponent steeringMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorSteering(bundleContext));
+		IAdaptiveReadyComponent engineMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorEngine(bundleContext));
+		IAdaptiveReadyComponent lineMonitorARC = BasicMAPEKLiteLoopHelper.deployMonitor(new MonitorLine(bundleContext));
+		
 		
 		// PROBES
 		IAdaptiveReadyComponent roadTypeProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaTipo(bundleContext), roadTypeMonitorARC);
 		IAdaptiveReadyComponent roadStatusProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaEstado(bundleContext), roadStatusMonitorARC);
 		IAdaptiveReadyComponent speedProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaVelocidad(bundleContext), speedMonitorARC);
-		IAdaptiveReadyComponent distanceProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaDistancia(bundleContext), distanceMonitorARC);
+		IAdaptiveReadyComponent securityDistanceProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaDistanciaSeguridad(bundleContext), securityDistanceMonitorARC);
 		IAdaptiveReadyComponent levelProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaNivel(bundleContext), levelMonitorARC);
-		
-		
+		IAdaptiveReadyComponent faceProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaFace(bundleContext), faceMonitorARC);
+		IAdaptiveReadyComponent driverProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaDriver(bundleContext), driverMonitorARC);
+		IAdaptiveReadyComponent handsOnWheelProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaHandsOnWheel(bundleContext), handsOnWheelMonitorARC);
+		IAdaptiveReadyComponent distanceProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaDistancia(bundleContext), distanceMonitorARC);
+		IAdaptiveReadyComponent steeringProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaSteering(bundleContext), steeringMonitorARC);
+		IAdaptiveReadyComponent engineProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaEngine(bundleContext), engineMonitorARC);
+		IAdaptiveReadyComponent lineProbeARC = BasicMAPEKLiteLoopHelper.deployProbe(new SondaLine(bundleContext), lineMonitorARC);
 		
 		
 		//console.commands.initialize();
@@ -144,8 +179,8 @@ public class Activator implements BundleActivator {
 		IAdaptiveReadyComponent selfConfigureProbeARC = SearchTools.doSearch(bundleContext, IAdaptiveReadyComponent.class, sondaFilter);
 		SelfConfigureProbe selfConfigureProbe = (SelfConfigureProbe) selfConfigureProbeARC.getServiceSupply(ProbeARC.SUPPLY_PROBESERVICE);
 		selfConfigureProbe.sendSelfConfigureRequest();
-
 	}
+	
 
 	public void stop(BundleContext bundleContext) throws Exception {
 		Activator.context = null;

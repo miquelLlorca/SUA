@@ -4,25 +4,25 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
-import sua.autonomouscar.devices.interfaces.IDistanceSensor;
+
+import sua.autonomouscar.devices.interfaces.IEngine;
+import sua.autonomouscar.devices.interfaces.IRoadSensor;
 import sua.autonomouscar.interfaces.ERoadType;
 import es.upv.pros.tatami.adaptation.mapek.lite.artifacts.components.Probe;
 import autonomouscar.mapek.lite.adaptation.resources.MonitorTipo;
 
+// Sonda de motor
 
-
-// ROAD SENSOR
-
-public class SondaDistancia extends Probe implements ServiceListener{
+public class SondaEngine extends Probe implements ServiceListener{
 	
-	public static String ID = "Sonda_Distancia";
+	public static String ID = "Sonda Motor";
 
-	public SondaDistancia(BundleContext context) {
+	public SondaEngine(BundleContext context) {
 		super(context, ID);
-		MonitorDistancia m = new MonitorDistancia(context);
+		MonitorTipo m = new MonitorTipo(context);
 		super.addTheMonitor(m);
-		// aañadir filtro que escuche a road sensor
-		String filter = "(ObjectClass="+ IDistanceSensor.class.getName()+")";
+		// añadir filtro que escuche a motor
+		String filter = "(ObjectClass="+ IEngine.class.getName()+")";
 		
 		try {
 			context.addServiceListener(this, filter);
@@ -33,17 +33,17 @@ public class SondaDistancia extends Probe implements ServiceListener{
 	}
 	
 	
-	public void reportarMedicion(String tipo) {
-		this.reportMeasure(tipo.toUpperCase());
+	public void reportarMedicion(int revoluciones) {
+		this.reportMeasure(revoluciones);
 	}
 
 
 	@Override
 	public void serviceChanged(ServiceEvent event) {
 		// TODO Auto-generated method stub
-		IDistanceSensor r = (IDistanceSensor) context.getService(event.getServiceReference());
-		System.out.println(r.getDistance());
-		this.reportMeasure(String.valueOf(r.getDistance()));
+		IEngine r = (IEngine) context.getService(event.getServiceReference());
+		System.out.println(r.getCurrentRPM() + " RPM");
+		this.reportarMedicion(r.getCurrentRPM());
 	}
 
 }

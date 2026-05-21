@@ -159,19 +159,19 @@ public class ActivarHighwayChaufferRule extends AdaptationRule {
         SystemConfigurationHelper.setParameter(config,
                 "driving.L3.HighwayChauffer", "1.0.0",
                 L1_DrivingServiceARC.PARAMETER_LONGITUDINALSECURITYDISTANCE,
-                MonitorDistancia.DISTANCIA_VIA_RAPIDA);
+                MonitorDistanciaSeguridad.DISTANCIA_VIA_RAPIDA);
 
         SystemConfigurationHelper.setParameter(config,
                 "driving.L3.HighwayChauffer", "1.0.0",
                 L2_DrivingServiceARC.PARAMETER_LATERALSECURITYDISTANCE,
-                MonitorDistancia.DISTANCIA_VIA_RAPIDA);
+                MonitorDistanciaSeguridad.DISTANCIA_VIA_RAPIDA);
 
         // ACTUALIZA-KNOWLEDGE
         kp_NivelConduccion.setValue("HighwayChauffer");
         if (kp_DistanciaSeguridad != null)
-            kp_DistanciaSeguridad.setValue(MonitorDistancia.DISTANCIA_VIA_RAPIDA);
+            kp_DistanciaSeguridad.setValue(MonitorDistanciaSeguridad.DISTANCIA_VIA_RAPIDA);
 
-        logger.debug("HighwayChauffer activated. Distancia_Seguridad = " + MonitorDistancia.DISTANCIA_VIA_RAPIDA);
+        logger.debug("HighwayChauffer activated. Distancia_Seguridad = " + MonitorDistanciaSeguridad.DISTANCIA_VIA_RAPIDA);
 
         return config;
     }

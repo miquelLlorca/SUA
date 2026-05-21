@@ -37,8 +37,8 @@ public class HighwayCityAdaptationRule extends AdaptationRule {
 	public static String ID = "Regla ADS-L3-3";
 
 	// Reusamos las constantes definidas en MonitorDistancia para coherencia
-	public static final int DISTANCIA_VIA_RAPIDA = MonitorDistancia.DISTANCIA_VIA_RAPIDA;
-	public static final int DISTANCIA_CIUDAD     = MonitorDistancia.DISTANCIA_CIUDAD;
+	public static final int DISTANCIA_VIA_RAPIDA = MonitorDistanciaSeguridad.DISTANCIA_VIA_RAPIDA;
+	public static final int DISTANCIA_CIUDAD     = MonitorDistanciaSeguridad.DISTANCIA_CIUDAD;
 
 	IKnowledgeProperty kp_TipoCarretera     = null;
 	IKnowledgeProperty kp_NivelConduccion   = null;

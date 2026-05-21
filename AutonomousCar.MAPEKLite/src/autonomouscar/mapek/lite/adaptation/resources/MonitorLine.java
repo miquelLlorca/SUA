@@ -7,11 +7,11 @@ import es.upv.pros.tatami.adaptation.mapek.lite.artifacts.interfaces.IKnowledgeP
 import es.upv.pros.tatami.adaptation.mapek.lite.artifacts.interfaces.IMonitor;
 import es.upv.pros.tatami.adaptation.mapek.lite.helpers.BasicMAPEKLiteLoopHelper;
 
-public class MonitorDistancia extends Monitor {
+public class MonitorLine extends Monitor {
 	
-	public static String ID = "Monitor_Distancia";
+	public static String ID = "Monitor_Linea";
 
-	public MonitorDistancia(BundleContext context) {
+	public MonitorLine(BundleContext context) {
 		super(context, ID);
 	}
 
@@ -23,7 +23,7 @@ public class MonitorDistancia extends Monitor {
 		try {
 			String value = (String) measure;
 			
-			IKnowledgeProperty kp = BasicMAPEKLiteLoopHelper.getKnowledgeProperty("Distancia");
+			IKnowledgeProperty kp = BasicMAPEKLiteLoopHelper.getKnowledgeProperty("Linea");
 			if ( kp.getValue() == null || kp.getValue() != value ) { // sólo actualizamos si el valor es diferente
 				this.logger.debug(String.format("Updating Knowledge Property %s TO %s", kp.getId(), value));
 				kp.setValue(value);
