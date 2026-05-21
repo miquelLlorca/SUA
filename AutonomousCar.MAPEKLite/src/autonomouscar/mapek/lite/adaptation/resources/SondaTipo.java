@@ -42,7 +42,6 @@ public class SondaTipo extends Probe implements ServiceListener{
 	public void serviceChanged(ServiceEvent event) {
 		// TODO Auto-generated method stub
 		IRoadSensor r = (IRoadSensor) context.getService(event.getServiceReference());
-		System.out.println(r.getRoadStatus());
 		this.reportarMedicion(r.getRoadType().name());
 	}
 

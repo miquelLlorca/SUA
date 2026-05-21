@@ -38,8 +38,8 @@ public class FallBackPlanAdaptationRule extends AdaptationRule {
 	public FallBackPlanAdaptationRule(BundleContext context) {
 		super(context, ID);
 		this.setListenToKnowledgePropertyChanges("Tipo_Carretera");
-		this.setListenToKnowledgePropertyChanges("Nivel_Conducción"); // no haria falta escuchar
-
+		this.setListenToKnowledgePropertyChanges("Nivel_Conducción"); 
+		
 		kp_RoadType = BasicMAPEKLiteLoopHelper.getKnowledgeProperty("Tipo_Carretera");
 		kp_nivelConduccion = BasicMAPEKLiteLoopHelper.getKnowledgeProperty("Nivel_Conduccion");
 
